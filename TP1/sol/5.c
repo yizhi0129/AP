@@ -18,16 +18,19 @@
 typedef unsigned char      u8;
 typedef unsigned long long u64;
 
-//Sequence definitions
+//Sequence definitions 
 typedef struct {
 
   //Sequence elements/bytes
-  u8 *bases;
+  u8 *bases;  //这是一个 u8 指针，用于存储序列的元素或字节数据。可以被视为一个指向字节数组的指针。
 
   //Sequence length
-  u64 len;
+  u64 len;    //表示序列的长度，即序列中包含的元素或字节的数量。
 
-} seq_t;
+} seq_t; //这是一个用户定义的结构体，用于表示序列数据。
+//使用这些类型和结构体，您可以创建和操作序列数据，其中 seq_t 结构体包含了序列的元素和长度信息。
+//这种抽象的表示使得处理序列数据更加灵活和可维护，可以方便地传递和操作序列数据。
+
 
 //Global error variable
 u64 err_id = 0;
