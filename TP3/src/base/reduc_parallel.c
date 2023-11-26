@@ -33,6 +33,8 @@ typedef struct thread_data_s {
 //3 methods to initialize the array
 void init(f64 *restrict a, u64 n, u8 type)
 {
+  srand(0);
+  
   //Initialize with random values
   if (type == 'r')
     for (u64 i = 0; i < n; i++)
