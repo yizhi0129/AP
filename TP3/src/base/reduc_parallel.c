@@ -15,12 +15,8 @@
 typedef struct thread_data_s {
 
   //Thread ID
-<<<<<<< HEAD:TP3/src/base/reduc_parallel.c
-  pthread_t id;
-=======
   //POSIX.1 norm system unix: doc man
   pthread_t id; 
->>>>>>> e8fd0ae (files added):TP3/src/reduc_parallel.c
   
   //Number of elements handled by a thread
   u64 n;
