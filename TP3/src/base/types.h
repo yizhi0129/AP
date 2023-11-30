@@ -1,4 +1,4 @@
-#pragma once
+#pragma once // to avoid multiple inclusion
 
 //
 typedef unsigned char      u8;
