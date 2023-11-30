@@ -15,7 +15,12 @@
 typedef struct thread_data_s {
 
   //Thread ID
+<<<<<<< HEAD:TP3/src/base/reduc_parallel.c
   pthread_t id;
+=======
+  //POSIX.1 norm system unix: doc man
+  pthread_t id; 
+>>>>>>> e8fd0ae (files added):TP3/src/reduc_parallel.c
   
   //Number of elements handled by a thread
   u64 n;
@@ -62,7 +67,7 @@ f64 reduc_sequential(f64 *restrict a, u64 n)
   return r;
 }
 
-//
+//thread: a function here
 void *_reduc_(void *p)
 {
   thread_data_t *td = (thread_data_t *)p;
@@ -72,7 +77,7 @@ void *_reduc_(void *p)
   return NULL;
 }
 
-//
+//thread number: nt, number of elements: n, array: a
 f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
 {
   //Reduction value
