@@ -14,7 +14,7 @@
 typedef struct thread_data_s {
 
   //Thread ID
-  //POSIX.1 norm system unix : doc man
+  //POSIX.1 norm system unix: doc man
   pthread_t id; 
   
   //Number of elements handled by a thread
@@ -61,7 +61,7 @@ f64 reduc_sequential(f64 *restrict a, u64 n)
   return r;
 }
 
-//thread : a function here
+//thread: a function here
 void *_reduc_(void *p)
 {
   thread_data_t *td = (thread_data_t *)p; //td : thread data
@@ -71,7 +71,7 @@ void *_reduc_(void *p)
   return NULL; // void * : should return a pointer, NULL here
 }
 
-//thread number : nt, number of elements : n, array : a
+//thread number: nt, number of elements: n, array: a
 f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
 {
   //Reduction value
@@ -100,7 +100,7 @@ f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
       CPU_SET(i, &cpuset);
 
       //Number of elements per thread. 
-      //No load balancing! rest of the division : 1, 2, 3 
+      //No load balancing! rest of the division: 1, 2, 3 
       td[i].n = (n / nt); //block size
       td[i].a = a + i * td[i].n; //pointer to the beginning of the block 
       td[i].r = 0.0; //partial sum, initialized 0
@@ -115,8 +115,8 @@ f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
       printf("thread id: %llu; core: %llu\n", (u64)td[i].id, i);
     } 
   
-  //barrior ; waiting 
-  //clone : command to create a thread
+  //barrior: waiting 
+  //clone: command to create a thread
 
   //Finilizing
   // partial sum -> sum
