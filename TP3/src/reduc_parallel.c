@@ -100,9 +100,9 @@ f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
       CPU_SET(i, &cpuset);
 
       //Number of elements per thread. 
-      //No load balancing! rest of the division: 1, 2, 3 
-      td[i].n = (n / nt); //block size
-      td[i].a = a + i * td[i].n; //pointer to the beginning of the block 
+      // add cases where n % nt != 0
+      td[i].n = (n / nt) + (i < n % nt ? 1 : 0); //block size
+      td[i].a = a + i * (n / nt + (i < n % nt ? 1 : 0)); //pointer to the beginning of the block 
       td[i].r = 0.0; //partial sum, initialized 0
       
       //Create the thread
