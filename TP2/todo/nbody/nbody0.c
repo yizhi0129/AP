@@ -65,10 +65,18 @@ vector add_vectors_c(vector a, vector b)
 }
 
 
+<<<<<<< HEAD
 vector add_vectors_asm1(vector a, vector b)
 {
   vector c;
   __asm__ volatile (
+=======
+vector add_vectors_sse(vector a, vector b)
+{
+  vector c;
+  __asm__ volatile 
+  (
+>>>>>>> new
     "movss %[a_x], %%xmm0\n"
     "movss %[b_x], %%xmm1\n"
     "addss %%xmm1, %%xmm0\n"
@@ -84,6 +92,44 @@ vector add_vectors_asm1(vector a, vector b)
   return c;
 } 
 
+<<<<<<< HEAD
+=======
+vector add_vectors_avx2(vector a, vector b) 
+{
+  vector c;
+
+    // Load 'a' and 'b' into AVX2 registers
+  __m256d va = _mm256_set_pd(a.y, a.x, a.y, a.x);
+  __m256d vb = _mm256_set_pd(b.y, b.x, b.y, b.x);
+
+    // Add the elements of 'va' and 'vb'
+  __m256d result = _mm256_add_pd(va, vb);
+
+    // Store the result back to 'c'
+  _mm256_storeu_pd(&c.x, result);
+
+  return c;
+}
+
+vector add_vectors_avx512(vector a, vector b) 
+{
+  vector c;
+
+    // Load 'a' and 'b' into AVX512 registers
+  __m512d va = _mm512_set_pd(a.y, a.x, a.y, a.x, a.y, a.x, a.y, a.x);
+  __m512d vb = _mm512_set_pd(b.y, b.x, b.y, b.x, b.y, b.x, b.y, b.x);
+
+    // Add the elements of 'va' and 'vb'
+  __m512d result = _mm512_add_pd(va, vb);
+
+    // Store the result back to 'c'
+  _mm512_storeu_pd(&c.x, result);
+
+  return c;
+}
+
+
+>>>>>>> new
 
 //
 vector scale_vector_c(double b, vector a)
@@ -94,6 +140,7 @@ vector scale_vector_c(double b, vector a)
 }
 
 
+<<<<<<< HEAD
 vector scale_vector_asm1(double b, vector a)
 {
   vector c;
@@ -108,6 +155,60 @@ vector scale_vector_asm1(double b, vector a)
         : [_c_x] "=m" (c.x), [_c_y] "=m" (c.y)
         : [_b] "m" (b), [_a_x] "m" (a.x), [_a_y] "m" (a.y)
         : "xmm0", "xmm1", "xmm2", "cc", "memory");
+=======
+vector scale_vector_sse(double b, vector a)
+{
+  vector c;
+  __asm__ volatile 
+  (
+    "movsd %[_b], %%xmm0;\n"  
+    "movsd %[_a_x], %%xmm1;\n"  
+    "movsd %[_a_y], %%xmm2;\n"  
+    "mulsd %%xmm1, %%xmm0;\n"  
+    "mulsd %%xmm2, %%xmm0;\n"   
+    "movsd %%xmm0, %[_c_x];\n"  
+    "movsd %%xmm0, %[_c_y];\n"  
+    : [_c_x] "=m" (c.x), [_c_y] "=m" (c.y)
+    : [_b] "m" (b), [_a_x] "m" (a.x), [_a_y] "m" (a.y)
+    : "xmm0", "xmm1", "xmm2", "cc", "memory"
+  );
+  return c;
+}
+
+vector scale_vector_avx2(double b, vector a)
+{
+  vector c;
+  __m256d vb = _mm256_set1_pd(b);  // Broadcast 'b' to all elements of a AVX2 register
+
+    // Load 'a' into a single AVX2 register
+  __m256d va = _mm256_set_pd(a.y, a.x, a.y, a.x);
+
+    // Multiply the elements of 'va' and 'vb'
+  __m256d result = _mm256_mul_pd(va, vb);
+
+    // Store the result back to 'c'
+  _mm256_storeu_pd(&c.x, result);
+
+  return c;
+}
+
+vector scale_vector_avx512(double b, vector a) 
+{
+  vector c;
+
+    // Load 'b' into AVX512 register
+  __m512d vb = _mm512_set1_pd(b);
+
+    // Load 'a' into AVX512 registers
+  __m512d va = _mm512_set_pd(a.y, a.x, a.y, a.x, a.y, a.x, a.y, a.x);
+
+    // Multiply the elements of 'va' and 'vb'
+  __m512d result = _mm512_mul_pd(va, vb);
+
+    // Store the result back to 'c'
+  _mm512_storeu_pd(&c.x, result);
+
+>>>>>>> new
   return c;
 }
 
@@ -121,6 +222,7 @@ vector sub_vectors_c(vector a, vector b)
   return c;
 }
 
+<<<<<<< HEAD
 vector sub_vectors_asm1(vector a, vector b) 
 {
     vector c;
@@ -140,6 +242,63 @@ vector sub_vectors_asm1(vector a, vector b)
     );
 
     return c;
+=======
+vector sub_vectors_sse(vector a, vector b) 
+{
+  vector c;
+    
+  __asm__ volatile 
+  (
+    "movsd %[a_x], %%xmm0;\n"   
+    "subsd %[b_x], %%xmm0;\n"   
+    "movsd %%xmm0, %[c_x];\n"   
+
+    "movsd %[a_y], %%xmm1;\n"   
+    "subsd %[b_y], %%xmm1;\n"   
+    "movsd %%xmm1, %[c_y];\n"   
+        
+    : [c_x] "=m" (c.x), [c_y] "=m" (c.y)  
+    : [a_x] "m" (a.x), [a_y] "m" (a.y), [b_x] "m" (b.x), [b_y] "m" (b.y)  
+    : "xmm0", "xmm1"  
+  );
+
+  return c;
+}
+
+
+vector sub_vectors_avx2(vector a, vector b) 
+{
+  vector c;
+
+    // Load 'a' and 'b' into AVX2 registers
+  __m256d va = _mm256_set_pd(a.y, a.x, a.y, a.x);
+  __m256d vb = _mm256_set_pd(b.y, b.x, b.y, b.x);
+
+    // Subtract the elements of 'vb' from 'va'
+  __m256d result = _mm256_sub_pd(va, vb);
+
+    // Store the result back to 'c'
+  _mm256_storeu_pd(&c.x, result);
+
+  return c;
+}
+
+vector sub_vectors_avx512(vector a, vector b) 
+{
+  vector c;
+
+    // Load 'a' and 'b' into AVX512 registers
+  __m512d va = _mm512_set_pd(a.y, a.x, a.y, a.x, a.y, a.x, a.y, a.x);
+  __m512d vb = _mm512_set_pd(b.y, b.x, b.y, b.x, b.y, b.x, b.y, b.x);
+
+    // Subtract the elements of 'vb' from 'va'
+  __m512d result = _mm512_sub_pd(va, vb);
+
+    // Store the result back to 'c'
+  _mm512_storeu_pd(&c.x, result);
+
+  return c;
+>>>>>>> new
 }
 
 //
@@ -149,6 +308,7 @@ double mod_c(vector a)
 }
 
 
+<<<<<<< HEAD
 double mod_asm1(vector a) {
     double c;
 
@@ -169,6 +329,72 @@ double mod_asm1(vector a) {
 }
 
 
+=======
+double mod_sse(vector a) 
+{
+  double c;
+
+  __asm__ volatile 
+  (
+      "movsd %[a_x], %%xmm0;\n"   
+      "mulsd %%xmm0, %%xmm0;\n"   
+      "movsd %[a_y], %%xmm1;\n"   
+      "mulsd %%xmm1, %%xmm1;\n"  
+      "addsd %%xmm0, %%xmm1;\n"  
+      "sqrtsd %%xmm1, %[c];\n"   
+
+      : [c] "=m" (c)   
+      : [a_x] "m" (a.x), [a_y] "m" (a.y)   
+      : "xmm0", "xmm1"   
+  );
+
+  return c;
+}
+
+double mod_avx2(vector a) 
+{
+  double c;
+
+    // Load 'a' into AVX2 register
+  __m256d va = _mm256_set_pd(a.y, a.x, a.y, a.x);
+
+    // Multiply the elements of 'va'
+  __m256d result = _mm256_mul_pd(va, va);
+
+    // Horizontal add across the register
+  result = _mm256_hadd_pd(result, result);
+
+    // Horizontal add again to get the sum of squares
+  result = _mm256_hadd_pd(result, result);
+
+    // Extract the square root
+  _mm256_storeu_pd(&c, _mm256_sqrt_pd(result));
+
+  return c;
+}
+
+double mod_avx512(vector a) 
+{
+  double c;
+
+    // Load 'a' into AVX512 register
+  __m512d va = _mm512_set_pd(a.y, a.x, a.y, a.x, a.y, a.x, a.y, a.x);
+
+    // Multiply the elements of 'va'
+  __m512d result = _mm512_mul_pd(va, va);
+
+    // Horizontal add across the register
+  result = _mm512_add_pd(result, _mm512_permutex_pd(result, 0x4E));
+
+    // Horizontal add again to get the sum of squares
+  result = _mm512_add_pd(result, _mm512_permutex_pd(result, 0xB1));
+
+    // Extract the square root
+  _mm512_storeu_pd(&c, _mm512_sqrt_pd(result));
+
+  return c;
+}
+>>>>>>> new
 
 //This function initializes the simulation parameters, including the simulation dimensions, number of particles, 
 //gravitational constant, time steps, and arrays to store particle data. 
@@ -205,13 +431,12 @@ void resolve_collisions()
   //
   for (int i = 0; i < nbodies - 1; i++)
     for (int j = i + 1; j < nbodies; j++)
-      if (positions[i].x == positions[j].x &&
-	  positions[i].y == positions[j].y)
-	{
-	  vector temp = velocities[i];
-	  velocities[i] = velocities[j];
-	  velocities[j] = temp;
-	}
+      if (positions[i].x == positions[j].x && positions[i].y == positions[j].y)
+	    {
+	      vector temp = velocities[i];
+	      velocities[i] = velocities[j];
+	      velocities[j] = temp;
+	    }
 }
 
 //This function calculates the accelerations of all particles based on the gravitational interactions between them.

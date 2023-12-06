@@ -1,0 +1,17 @@
+thread id: 139781564503808; core: 0
+thread id: 139781556111104; core: 1
+thread id: 139781547718400; core: 2
+thread id: 139781539325696; core: 3
+thread id: 139781530932992; core: 4
+thread id: 139781522540288; core: 5
+thread id: 139781514147584; core: 6
+thread id: 139781505754880; core: 7
+thread id: 139781497362176; core: 8
+thread id: 139781488969472; core: 9
+thread id: 139781480576768; core: 10
+thread id: 139781472184064; core: 11
+thread id: 139781463791360; core: 12
+allocated memory : 800000000 B, 781250 KiB, 762 MiB, 0 GiB
+sequential result: 119021021.121800
+parallel result  : 119021021.087761
+delta            : 0.034038 (3.403826e-02)
