@@ -61,6 +61,7 @@ f64 reduc_openmp(f64 *restrict a, u64 n)
       r_private += a[i];
 
     //Sequential final sum 
+    // mutex
     #pragma omp atomic
     r += r_private;
   }

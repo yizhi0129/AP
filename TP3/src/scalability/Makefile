@@ -1,6 +1,8 @@
 CC=gcc
 CFLAGS=-Wall -g
 OFLAGS=-O3 -fopenmp
+#OpenMP allows you to parallelize loops, sections of code, 
+#and other parts of your program to achieve better performance on multicore systems.
 AFLAGS=-march=native -mtune=native
 LFLAGS=-lpthread -lm
 
