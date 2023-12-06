@@ -84,15 +84,9 @@ f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
   //Mask for thread pinning
   cpu_set_t cpuset;
   
-<<<<<<< HEAD:TP3/src/reduc_parallel.c
-  //Allocating threads data structure
-  thread_data_t *td = malloc(sizeof(thread_data_t) * nt);
-
-=======
   //Allocating threads data array
   thread_data_t **td = malloc(sizeof(thread_data_t *) * nt);
   
->>>>>>> ee701ec (Updating TP3 with new codes):TP3/src/base/reduc_parallel.c
   if (!td)
     {
       printf("Error: cannot allocate thread data\n");
@@ -107,49 +101,30 @@ f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
   //creation, allocation, distrubution of charges
   for (u64 i = 0; i < nt; i++)
     {
-<<<<<<< HEAD:TP3/src/reduc_parallel.c
-      //Clear cpuset mask (64 bits), initialized 0
-=======
+      
       //Allocate thread data entry in the array
       td[i] = malloc(sizeof(thread_data_t));
       
-      //Clear cpuset mask
->>>>>>> ee701ec (Updating TP3 with new codes):TP3/src/base/reduc_parallel.c
+      //Clear cpuset mask (64 bits), initialized 0
       CPU_ZERO(&cpuset);
       
       //Setting up the target CPU core, thread i to core i
       CPU_SET(i, &cpuset);
 
       //Number of elements per thread. 
-<<<<<<< HEAD:TP3/src/reduc_parallel.c
-      // add cases where n % nt != 0
-      td[i].n = (n / nt) + (i < n % nt ? 1 : 0); //block size
-      td[i].a = a + i * (n / nt + (i < n % nt ? 1 : 0)); //pointer to the beginning of the block 
-      td[i].r = 0.0; //partial sum, initialized 0
-      
-      //Create the thread
-      pthread_create(&td[i].id, NULL, _reduc_, &td[i]); //&td[i] : parameter of _reduc_
-=======
       td[i]->n = n_div + (n_mod != 0);
       td[i]->a = a + (i * td[i]->n);
       td[i]->r = 0.0;
       
       //Create the thread
       pthread_create(&td[i]->id, NULL, _reduc_, td[i]);
->>>>>>> ee701ec (Updating TP3 with new codes):TP3/src/base/reduc_parallel.c
 
       //Pin the thread on the previously set up core 
       pthread_setaffinity_np(td[i]->id, sizeof(cpuset), &cpuset);
 
-<<<<<<< HEAD:TP3/src/reduc_parallel.c
-      //
-      printf("thread id: %llu; core: %llu\n", (u64)td[i].id, i);
-    } 
-=======
       if (n_mod)
 	n_mod--;
     }
->>>>>>> ee701ec (Updating TP3 with new codes):TP3/src/base/reduc_parallel.c
   
   //barrior: waiting 
   //clone: command to create a thread
@@ -164,14 +139,11 @@ f64 reduc_parallel(f64 *restrict a, u64 n, u64 nt)
       
       free(td[i]);
     }
-<<<<<<< HEAD:TP3/src/reduc_parallel.c
   //mutex : mutual exclusion
   //to realize atomicity here
-=======
 
   free(td);
   
->>>>>>> ee701ec (Updating TP3 with new codes):TP3/src/base/reduc_parallel.c
   return r;
 }
 
@@ -210,10 +182,6 @@ int main(int argc, char **argv)
   //
   f64 t1 = 0.0, t2 = 0.0;
   
-<<<<<<< HEAD:TP3/src/reduc_parallel.c
-  //verify precision problem
-  printf("delta            : %lf (%e)\n", delta, delta);
-=======
   //
   f64 *restrict a = aligned_alloc(64, s);
 
@@ -247,7 +215,6 @@ int main(int argc, char **argv)
   
   printf("\nresults delta      : %lf (%e)\n", delta, delta);
   printf("speedup           : %.3lf\n", speedup);
->>>>>>> ee701ec (Updating TP3 with new codes):TP3/src/base/reduc_parallel.c
   
   //
   free(a);
