@@ -37,11 +37,11 @@ void init(f64 *restrict a, u64 n, u8 type)
   //Initialize with random values
   if (type == 'r')
     for (u64 i = 0; i < n; i++)
-      a[i] = (f64)RAND_MAX / (f64)rand();
+      a[i] = (f64)RAND_MAX / (f64)rand(); //random number generated [0.0, 1.0)
   else //Clear
     if (type == 'z')
       for (u64 i = 0; i < n; i++)
-	a[i] = 0.0;
+	      a[i] = 0.0;
     else //Initialize with a random constant
       if (type == 'c')
 	{
@@ -68,6 +68,7 @@ void *_reduc_(void *p)
 {
   thread_data_t *td = (thread_data_t *)p;
   
+  // Calling a function (reduc_sequential) with parameters from the thread_data_t structure
   td->r = reduc_sequential(td->a, td->n);
   
   return NULL;
