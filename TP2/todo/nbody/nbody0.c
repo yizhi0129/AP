@@ -65,18 +65,11 @@ vector add_vectors_c(vector a, vector b)
 }
 
 
-<<<<<<< HEAD
-vector add_vectors_asm1(vector a, vector b)
-{
-  vector c;
-  __asm__ volatile (
-=======
 vector add_vectors_sse(vector a, vector b)
 {
   vector c;
   __asm__ volatile 
   (
->>>>>>> new
     "movss %[a_x], %%xmm0\n"
     "movss %[b_x], %%xmm1\n"
     "addss %%xmm1, %%xmm0\n"
@@ -92,8 +85,6 @@ vector add_vectors_sse(vector a, vector b)
   return c;
 } 
 
-<<<<<<< HEAD
-=======
 vector add_vectors_avx2(vector a, vector b) 
 {
   vector c;
@@ -129,7 +120,6 @@ vector add_vectors_avx512(vector a, vector b)
 }
 
 
->>>>>>> new
 
 //
 vector scale_vector_c(double b, vector a)
@@ -140,22 +130,6 @@ vector scale_vector_c(double b, vector a)
 }
 
 
-<<<<<<< HEAD
-vector scale_vector_asm1(double b, vector a)
-{
-  vector c;
-  __asm__ volatile (
-        "movsd %[_b], %%xmm0;\n"  
-        "movsd %[_a_x], %%xmm1;\n"  
-        "movsd %[_a_y], %%xmm2;\n"  
-        "mulsd %%xmm1, %%xmm0;\n"  
-        "mulsd %%xmm2, %%xmm0;\n"   
-        "movsd %%xmm0, %[_c_x];\n"  
-        "movsd %%xmm0, %[_c_y];\n"  
-        : [_c_x] "=m" (c.x), [_c_y] "=m" (c.y)
-        : [_b] "m" (b), [_a_x] "m" (a.x), [_a_y] "m" (a.y)
-        : "xmm0", "xmm1", "xmm2", "cc", "memory");
-=======
 vector scale_vector_sse(double b, vector a)
 {
   vector c;
@@ -208,7 +182,6 @@ vector scale_vector_avx512(double b, vector a)
     // Store the result back to 'c'
   _mm512_storeu_pd(&c.x, result);
 
->>>>>>> new
   return c;
 }
 
@@ -222,27 +195,6 @@ vector sub_vectors_c(vector a, vector b)
   return c;
 }
 
-<<<<<<< HEAD
-vector sub_vectors_asm1(vector a, vector b) 
-{
-    vector c;
-    
-    __asm__ volatile (
-        "movsd %[a_x], %%xmm0;\n"   
-        "subsd %[b_x], %%xmm0;\n"   
-        "movsd %%xmm0, %[c_x];\n"   
-
-        "movsd %[a_y], %%xmm1;\n"   
-        "subsd %[b_y], %%xmm1;\n"   
-        "movsd %%xmm1, %[c_y];\n"   
-        
-        : [c_x] "=m" (c.x), [c_y] "=m" (c.y)  
-        : [a_x] "m" (a.x), [a_y] "m" (a.y), [b_x] "m" (b.x), [b_y] "m" (b.y)  
-        : "xmm0", "xmm1"  
-    );
-
-    return c;
-=======
 vector sub_vectors_sse(vector a, vector b) 
 {
   vector c;
@@ -298,7 +250,6 @@ vector sub_vectors_avx512(vector a, vector b)
   _mm512_storeu_pd(&c.x, result);
 
   return c;
->>>>>>> new
 }
 
 //
@@ -308,28 +259,6 @@ double mod_c(vector a)
 }
 
 
-<<<<<<< HEAD
-double mod_asm1(vector a) {
-    double c;
-
-    __asm__ volatile (
-        "movsd %[a_x], %%xmm0;\n"   
-        "mulsd %%xmm0, %%xmm0;\n"   
-        "movsd %[a_y], %%xmm1;\n"   
-        "mulsd %%xmm1, %%xmm1;\n"  
-        "addsd %%xmm0, %%xmm1;\n"  
-        "sqrtsd %%xmm1, %[c];\n"   
-
-        : [c] "=m" (c)   
-        : [a_x] "m" (a.x), [a_y] "m" (a.y)   
-        : "xmm0", "xmm1"   
-    );
-
-    return c;
-}
-
-
-=======
 double mod_sse(vector a) 
 {
   double c;
@@ -394,7 +323,6 @@ double mod_avx512(vector a)
 
   return c;
 }
->>>>>>> new
 
 //This function initializes the simulation parameters, including the simulation dimensions, number of particles, 
 //gravitational constant, time steps, and arrays to store particle data. 
