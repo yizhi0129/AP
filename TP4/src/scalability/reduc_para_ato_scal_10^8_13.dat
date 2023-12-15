@@ -1,0 +1,27 @@
+
+allocated memory  : 80000000 B, 78125 KiB, 76 MiB, 0 GiB
+# threads:   1; # elements/thread:           10000000; elapsed:       0.01138 s; result: 11902102.107748
+# threads:   2; # elements/thread:            5000000; elapsed:       0.00534 s; result: 11902102.110088
+# threads:   3; # elements/thread:            3333333; elapsed:       0.00697 s; result: 11902102.109678
+# threads:   4; # elements/thread:            2500000; elapsed:       0.00423 s; result: 11902102.109268
+# threads:   5; # elements/thread:            2000000; elapsed:       0.00527 s; result: 11902102.108858
+# threads:   6; # elements/thread:            1666666; elapsed:       0.00470 s; result: 11902102.108581
+# threads:   7; # elements/thread:            1428571; elapsed:       0.00445 s; result: 11902102.108582
+# threads:   8; # elements/thread:            1250000; elapsed:       0.00416 s; result: 11902102.108582
+# threads:   9; # elements/thread:            1111111; elapsed:       0.00492 s; result: 11902102.108583
+# threads:  10; # elements/thread:            1000000; elapsed:       0.00445 s; result: 11902102.108583
+# threads:  11; # elements/thread:             909090; elapsed:       0.00424 s; result: 11902102.108583
+# threads:  12; # elements/thread:             833333; elapsed:       0.00471 s; result: 11902102.108584
+# threads:  13; # elements/thread:             769230; elapsed:       0.00472 s; result: 11902102.108584
+delta(0, 1) = 0.002339 (2.339391e-03); speedup: 2.131
+delta(0, 2) = 0.001930 (1.929525e-03); speedup: 1.633
+delta(0, 3) = 0.001520 (1.519658e-03); speedup: 2.692
+delta(0, 4) = 0.001110 (1.109790e-03); speedup: 2.161
+delta(0, 5) = 0.000833 (8.331034e-04); speedup: 2.420
+delta(0, 6) = 0.000833 (8.334871e-04); speedup: 2.558
+delta(0, 7) = 0.000834 (8.338634e-04); speedup: 2.736
+delta(0, 8) = 0.000834 (8.342452e-04); speedup: 2.311
+delta(0, 9) = 0.000835 (8.346252e-04); speedup: 2.556
+delta(0, 10) = 0.000835 (8.350071e-04); speedup: 2.686
+delta(0, 11) = 0.000835 (8.353870e-04); speedup: 2.415
+delta(0, 12) = 0.000836 (8.357689e-04); speedup: 2.410

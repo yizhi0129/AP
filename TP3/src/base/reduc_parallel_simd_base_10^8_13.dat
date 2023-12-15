@@ -1,0 +1,11 @@
+
+allocated memory  : 80000000 B, 78125 KiB, 76 MiB, 0 GiB
+
+sequential result : 11902102.107748
+sequential elapsed: 0.014 s
+
+parallel result   : 11902163.999579
+parallel elapsed  : 0.006 s
+
+results delta      : 61.891830 (6.189183e+01)
+speedup           : 2.280

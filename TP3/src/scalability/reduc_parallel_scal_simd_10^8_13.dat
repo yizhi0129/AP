@@ -1,0 +1,27 @@
+
+allocated memory  : 80000000 B, 78125 KiB, 76 MiB, 0 GiB
+# threads:   1; # elements/thread:           10000000; elapsed:       0.00977 s; result: 11902102.108585
+# threads:   2; # elements/thread:            5000000; elapsed:       0.00431 s; result: 11902102.108591
+# threads:   3; # elements/thread:            3333333; elapsed:       0.00425 s; result: 11902133.054063
+# threads:   4; # elements/thread:            2500000; elapsed:       0.00421 s; result: 11902102.108603
+# threads:   5; # elements/thread:            2000000; elapsed:       0.00444 s; result: 11902102.108610
+# threads:   6; # elements/thread:            1666666; elapsed:       0.00443 s; result: 11902156.858285
+# threads:   7; # elements/thread:            1428571; elapsed:       0.00430 s; result: 11902152.097451
+# threads:   8; # elements/thread:            1250000; elapsed:       0.00439 s; result: 11902102.108628
+# threads:   9; # elements/thread:            1111111; elapsed:       0.00438 s; result: 11902216.368814
+# threads:  10; # elements/thread:            1000000; elapsed:       0.00433 s; result: 11902102.108640
+# threads:  11; # elements/thread:             909090; elapsed:       0.00433 s; result: 11902102.108646
+# threads:  12; # elements/thread:             833333; elapsed:       0.00438 s; result: 11902265.167447
+# threads:  13; # elements/thread:             769230; elapsed:       0.00440 s; result: 11902163.999579
+delta(0, 1) = 0.000006 (6.088987e-06); speedup: 2.268
+delta(0, 2) = 30.945478 (3.094548e+01); speedup: 2.300
+delta(0, 3) = 0.000018 (1.826696e-05); speedup: 2.322
+delta(0, 4) = 0.000024 (2.435595e-05); speedup: 2.198
+delta(0, 5) = 54.749700 (5.474970e+01); speedup: 2.206
+delta(0, 6) = 49.988865 (4.998887e+01); speedup: 2.271
+delta(0, 7) = 0.000043 (4.262291e-05); speedup: 2.227
+delta(0, 8) = 114.260229 (1.142602e+02); speedup: 2.229
+delta(0, 9) = 0.000055 (5.480088e-05); speedup: 2.256
+delta(0, 10) = 0.000061 (6.088801e-05); speedup: 2.254
+delta(0, 11) = 163.058862 (1.630589e+02); speedup: 2.231
+delta(0, 12) = 61.890993 (6.189099e+01); speedup: 2.219
